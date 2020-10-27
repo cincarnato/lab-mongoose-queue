@@ -1,10 +1,14 @@
 const mongoose = require("mongoose")
 mongoose.connect('mongodb://localhost:27017/lab-queue', {useNewUrlParser: true});
-
+const {MongooseQueue} = require('mongoose-queue');
+const configQueue = require('./configQueue')
 const campaignModel = require('./../model/campaignModel')
-const campaignQueue = require('./campaignQueue')
 const randomNumber = require('./../utils/randomNumber')
 const randomString = require('./../utils/randomString')
+
+
+
+const campaignQueue = new MongooseQueue(configQueue.payloadModel, 'producer', configQueue.options)
 
 //Se generan varios Jobs y se agregan a la Queue
 for (let i = 0; i < 20; i++) {
