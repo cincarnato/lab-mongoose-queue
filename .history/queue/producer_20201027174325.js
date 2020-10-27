@@ -55,13 +55,3 @@ for (let i = 0; i < 20; i++) {
 //funcion 1: instanciar el mongoose queue, que se le va a pasar como parametro el payloadModel
 //funcion 2: agregar payload a la cola, se tiene que pasar el payload ya instanciado segun el modelo que se va a agregar
 //dentro de esta funcion, agregarlo a la cola
-
-export const QueueimportCsvPersons (){
-    const payload = new importCsvModel({
-        path:
-        user:
-        type:
-    })
-    paylaod.save()
-    QueueProducer.addJobToQueue(payload)
-}

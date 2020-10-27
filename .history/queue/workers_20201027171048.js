@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost:27017/lab-queue', {useNewUrlParser: true})
 const {MongooseQueue} = require('mongoose-queue');
 const configQueue = require('./configQueue')
 const randomNumber = require('./../utils/randomNumber')
-
+const campaignModel = require('./../model/campaignModel')
 
 const workerOne = new MongooseQueue(configQueue.payloadModel, 'workerOne', configQueue.options)
 
@@ -42,7 +42,10 @@ function processesCampaign(worker, count) {
         //Hago un settimeout para "simular" que estoy haciendo un trabajo que me lleva tiempo
         setTimeout(() => {
             //Aca haria el trabajo, ejemplo: recorrer un CSV e importar sus datos a la DB
-            
+            let campaign = new campaignModel(
+                job.payload
+            )           
+            campaign.save()
             //Al terminar de hacer el trabajo, hago un update sobre la entidad objetivo
             job.payload.time = time
             job.payload.save(
